@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Lintas Dunia News menyajikan informasi aktual, cepat, dan terpercaya.">
+<title>Lintas Dunia News — Portal Berita</title>
+<style>
+:root{--navy:#061d38;--navy2:#0b2b50;--gold:#e8bd4d;--ink:#142033;--muted:#667085;--paper:#f4f6f9}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 Arial,Helvetica,sans-serif}
+a{color:inherit;text-decoration:none}.wrap{width:min(1280px,94%);margin:auto}
+header{background:linear-gradient(110deg,#04172d,#0b2d52);color:white;border-bottom:4px solid var(--gold)}
+.top{min-height:104px;display:flex;align-items:center;gap:22px;padding:14px 0}
+.brand{display:flex;align-items:center;gap:14px;min-width:330px}.seal{width:76px;height:76px;border:3px double var(--gold);border-radius:50%;display:grid;place-items:center;color:var(--gold);font-size:34px;background:#092544}
+.brand strong{display:block;color:#f5d77e;font: bold 27px Georgia,serif;letter-spacing:.5px}.brand small{letter-spacing:3px;color:#e9edf4}
+nav{display:flex;gap:0;align-items:center;flex-wrap:wrap;margin-left:auto}nav a{padding:10px 12px;font-weight:bold;font-size:14px;border-right:1px solid #6f7f92}nav a:hover,nav a.active{color:var(--gold)}
+.tools{display:flex;gap:10px}.tools button,.menuBtn{background:transparent;color:white;border:1px solid #71839a;border-radius:8px;padding:9px 12px;cursor:pointer}
+.breaking{background:linear-gradient(90deg,#f2cf70,#e6b83e);color:#10213a;font-weight:bold}.breaking .wrap{display:flex;align-items:center;gap:18px;min-height:44px;overflow:hidden}.breaking b{white-space:nowrap}.ticker{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+main{padding:24px 0 38px}.leadgrid{display:grid;grid-template-columns:2fr .95fr;gap:22px}.sectionTitle{font-size:22px;color:#a47b22;border-bottom:3px solid var(--gold);display:inline-block;margin:0 0 15px;padding-bottom:5px}
+.hero{position:relative;min-height:390px;border-radius:9px;overflow:hidden;background:linear-gradient(0deg,rgba(2,14,29,.92),rgba(2,14,29,.04)),url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1400&q=85') center/cover;color:white;display:flex;align-items:end;padding:28px}
+.tag{display:inline-block;background:var(--gold);color:#12213a;font-weight:bold;padding:5px 12px;border-radius:4px;font-size:13px}
+.hero h1{font-size:clamp(25px,3vw,38px);line-height:1.12;max-width:760px;margin:12px 0}.hero p{max-width:680px;margin:0 0 12px}.meta{font-size:13px;color:#d7dfeb}
+.popular{background:white;border-radius:9px;overflow:hidden;box-shadow:0 3px 14px #10233b14}.popular h2{background:var(--navy);color:var(--gold);margin:0;padding:15px 18px;font-size:20px}.popular ol{margin:0;padding:8px 18px 12px 42px}.popular li{padding:12px 0;border-bottom:1px solid #e7eaf0;font-weight:bold}.popular small{display:block;color:var(--muted);font-weight:normal;margin-top:5px}
+.latest{margin-top:28px}.bar{background:var(--navy);color:white;padding:9px 16px;border-left:8px solid var(--gold);display:flex;justify-content:space-between;align-items:center}.bar h2{margin:0;font-size:21px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:15px}.card{background:white;border-radius:8px;overflow:hidden;box-shadow:0 2px 10px #15243b12}.thumb{height:155px;background:#d8e0e9 center/cover}.cardbody{padding:13px}.card h3{font-size:17px;line-height:1.25;margin:8px 0}.card p{color:var(--muted);font-size:13px;margin:0 0 8px}.cat{font-size:11px;background:#fff1c9;color:#76530c;padding:4px 8px;border-radius:3px;font-weight:bold}
+footer{background:var(--navy);color:#e8edf5;border-top:4px solid var(--gold);padding:25px 0}.foot{display:flex;align-items:center;justify-content:space-between;gap:20px}.foot strong{color:var(--gold);font: bold 22px Georgia}.footlinks{display:flex;gap:18px;flex-wrap:wrap;font-size:14px}
+@media(max-width:900px){.top{flex-wrap:wrap}.brand{min-width:0}.brand strong{font-size:21px}nav{order:3;width:100%;margin:0}nav a{padding:8px}.leadgrid{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.wrap{width:92%}.seal{width:58px;height:58px;font-size:26px}.brand strong{font-size:18px}.brand small{font-size:10px;letter-spacing:2px}.tools{margin-left:auto}.tools button{padding:7px}.hero{min-height:350px;padding:20px}.cards{grid-template-columns:1fr}.thumb{height:190px}.foot{align-items:flex-start;flex-direction:column}.breaking .wrap{gap:10px;font-size:13px}}
+</style></head>
+<body>
+<header><div class="wrap top">
+<a class="brand" href="#"><div class="seal">🌐</div><div><strong>LINTAS DUNIA NEWS</strong><small>lintasdunianews.com</small></div></a>
+<nav id="nav"><a class="active" href="#">Beranda</a><a href="#nasional">Nasional</a><a href="#internasional">Internasional</a><a href="#hukum">Hukum</a><a href="#ekonomi">Ekonomi</a><a href="#olahraga">Olahraga</a><a href="#teknologi">Teknologi</a><a href="#hiburan">Hiburan</a></nav>
+<div class="tools"><button aria-label="Cari" onclick="document.getElementById('search').focus()">⌕</button><button aria-label="Menu" onclick="alert('Dashboard redaksi akan diaktifkan pada tahap berikutnya.')">☰</button></div>
+</div></header>
+<div class="breaking"><div class="wrap"><b>📢 BREAKING NEWS</b><span class="ticker">Informasi aktual, cepat, dan terpercaya — Lintas Dunia News</span></div></div>
+<main class="wrap">
+<div class="leadgrid"><section><h2 class="sectionTitle">BERITA UTAMA</h2>
+<article class="hero"><div><span class="tag">BERITA PILIHAN</span><h1>Menyajikan Informasi Aktual, Cepat dan Terpercaya</h1><p>Ikuti perkembangan berita nasional dan internasional bersama Lintas Dunia News.</p><div class="meta">Redaksi Lintas Dunia News · Berita utama</div></div></article>
+</section>
+<aside class="popular"><h2>★ TERPOPULER</h2><ol><li>Perkembangan ekonomi dan perdagangan global<small>Ekonomi · Pilihan redaksi</small></li><li>Penegakan hukum dan perlindungan masyarakat<small>Hukum · Pilihan redaksi</small></li><li>Perkembangan olahraga Indonesia<small>Olahraga · Pilihan redaksi</small></li><li>Inovasi teknologi dan dunia digital<small>Teknologi · Pilihan redaksi</small></li></ol></aside></div>
+<section class="latest"><div class="bar"><h2>BERITA TERBARU</h2><span>Lintas Dunia News</span></div><div class="cards">
+<article class="card" id="nasional"><div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=700&q=80')"></div><div class="cardbody"><span class="cat">NASIONAL</span><h3>Perkembangan kebijakan dan pelayanan publik nasional</h3><p>Contoh tampilan artikel · Nasional</p></div></article>
+<article class="card" id="internasional"><div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1529408632839-a54952c491e5?auto=format&fit=crop&w=700&q=80')"></div><div class="cardbody"><span class="cat">INTERNASIONAL</span><h3>Kerja sama antarnegara dan dinamika dunia</h3><p>Contoh tampilan artikel · Internasional</p></div></article>
+<article class="card" id="ekonomi"><div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=700&q=80')"></div><div class="cardbody"><span class="cat">EKONOMI</span><h3>Pasar dan perdagangan menjadi sorotan</h3><p>Contoh tampilan artikel · Ekonomi</p></div></article>
+<article class="card" id="olahraga"><div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=700&q=80')"></div><div class="cardbody"><span class="cat">OLAHRAGA</span><h3>Kabar terbaru dari dunia olahraga</h3><p>Contoh tampilan artikel · Olahraga</p></div></article>
+</div></section>
+</main>
+<footer><div class="wrap foot"><div><strong>LINTAS DUNIA NEWS</strong><div class="meta">Menyajikan Informasi Aktual, Cepat dan Terpercaya</div></div><div class="footlinks"><a href="#tentang">Tentang Kami</a><a href="#redaksi">Redaksi</a><a href="#kontak">Kontak</a><a href="#privasi">Kebijakan Privasi</a></div><small>© 2026 Lintas Dunia News</small></div></footer>
+</body></html>
