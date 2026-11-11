@@ -5,12 +5,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LINTAS DUNIA NEWS</title>
-  <meta name="description" content="LINTAS DUNIA NEWS menyajikan berita nasional, internasional, ekonomi, hukum, olahraga, teknologi, dan hiburan. Cepat, Akurat, Terpercaya.">
 
+<meta name="description" content="LINTAS DUNIA NEWS menyajikan berita nasional, internasional, ekonomi, hukum, olahraga, teknologi, dan hiburan. Cepat, Akurat, Terpercaya.">
 <meta property="og:title" content="LINTAS DUNIA NEWS">
 <meta property="og:description" content="Portal berita aktual, berimbang, dan terpercaya dari dalam dan luar negeri.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://lintasdunianews.github.io/lintasdunianews/">
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
@@ -18,281 +19,570 @@
   --navy:#071b35;
   --navy2:#102d50;
   --gold:#d6a63b;
-  --paper:#f4f6f9;
+  --red:#c62828;
+  --paper:#f2f4f7;
   --ink:#182536;
+  --muted:#687789;
+  --white:#fff;
 }
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
   margin:0;
   font-family:Arial,Helvetica,sans-serif;
   background:var(--paper);
   color:var(--ink);
+  line-height:1.55;
 }
+img{max-width:100%}
+a{color:inherit}
+.wrap{
+  width:100%;
+  max-width:1220px;
+  margin:auto;
+  padding:0 20px;
+}
+
+/* HEADER */
 header{
   background:var(--navy);
-  color:#fff;
+  color:white;
   border-bottom:4px solid var(--gold);
-}
-.wrap{
-  max-width:1180px;
-  margin:auto;
-  padding:0 18px;
 }
 .top{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:22px 0;
   gap:15px;
+  padding:20px 0;
 }
 .brand{
-  font-size:28px;
-  font-weight:800;
-  letter-spacing:1px;
+  font-size:29px;
+  font-weight:900;
+  letter-spacing:.5px;
 }
 .brand span{color:var(--gold)}
 .tag{
-  font-size:12px;
   color:#cbd5e1;
-  margin-top:5px;
+  font-size:12px;
+  margin-top:3px;
+}
+.admin{
+  border:0;
+  background:var(--gold);
+  color:#15263b;
+  border-radius:5px;
+  padding:11px 16px;
+  font-weight:bold;
+  cursor:pointer;
 }
 nav{
   display:flex;
   flex-wrap:wrap;
-  gap:0;
   border-top:1px solid #29415e;
 }
 nav a{
-  color:#fff;
+  display:block;
+  padding:13px 15px;
   text-decoration:none;
-  padding:14px 16px;
-  font-size:14px;
+  color:white;
+  font-size:13px;
   font-weight:bold;
 }
-nav a:hover{
+nav a:hover,
+nav a.active{
   background:var(--navy2);
   color:var(--gold);
 }
-.admin{
-  background:var(--gold);
-  border:0;
-  border-radius:4px;
-  padding:10px 15px;
-  font-weight:bold;
-  cursor:pointer;
-  color:#15263b;
-}
+
+/* KILASAN BERITA */
 .ticker{
   background:#fff;
   border-bottom:1px solid #ddd;
-  padding:12px 0;
-  font-size:14px;
+  display:flex;
+  align-items:stretch;
+  overflow:hidden;
+  min-height:43px;
 }
-.ticker b{
-  background:#b3261e;
-  color:#fff;
-  padding:7px 10px;
-  margin-right:10px;
+.ticker-label{
+  background:var(--red);
+  color:white;
+  font-size:12px;
+  font-weight:bold;
+  padding:12px 15px;
+  white-space:nowrap;
+  z-index:2;
 }
+.ticker-window{
+  overflow:hidden;
+  flex:1;
+  display:flex;
+  align-items:center;
+}
+.ticker-track{
+  display:flex;
+  align-items:center;
+  width:max-content;
+  white-space:nowrap;
+  animation:tickerMove 35s linear infinite;
+}
+.ticker-track:hover{animation-play-state:paused}
+.ticker-track a{
+  font-size:13px;
+  text-decoration:none;
+  color:#26384d;
+  padding:0 25px;
+}
+.ticker-track a:before{
+  content:"●";
+  color:var(--red);
+  margin-right:9px;
+  font-size:10px;
+}
+@keyframes tickerMove{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
+
+/* HALAMAN */
 main{padding:24px 0}
-.layout{
-  display:grid;
-  grid-template-columns:2fr 1fr;
-  gap:22px;
+.section-title{
+  font-size:20px;
+  color:var(--navy);
+  margin:0 0 17px;
+  padding-left:11px;
+  border-left:4px solid var(--gold);
 }
 .panel{
   background:white;
   border:1px solid #e1e5eb;
-  border-radius:7px;
-  padding:18px;
+  border-radius:8px;
+  padding:20px;
   margin-bottom:20px;
+  box-shadow:0 2px 9px rgba(0,0,0,.035);
 }
-h2{
-  font-size:20px;
-  margin:0 0 15px;
-  color:var(--navy);
-  border-left:4px solid var(--gold);
-  padding-left:10px;
-}
-.lead{
-  min-height:230px;
-  background:linear-gradient(120deg,#102d50,#355a7d);
-  border-radius:6px;
+
+/* SLIDER BERITA UTAMA */
+.slider-section{margin-bottom:22px}
+.slider{
+  position:relative;
+  height:430px;
+  overflow:hidden;
+  border-radius:10px;
+  background:#102d50;
   color:white;
-  padding:28px;
-  display:flex;
-  flex-direction:column;
-  justify-content:end;
 }
-.lead small{color:#f4d58a}
-.lead h1{
-  font-size:28px;
-  margin:10px 0;
+.slide{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .7s ease;
 }
-.lead p{
+.slide.active{
+  opacity:1;
+  visibility:visible;
+  z-index:1;
+}
+.slide img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.slide:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    0deg,
+    rgba(3,13,27,.95) 0%,
+    rgba(3,13,27,.55) 43%,
+    rgba(3,13,27,.05) 100%
+  );
+}
+.slide-content{
+  position:absolute;
+  z-index:2;
+  left:35px;
+  right:85px;
+  bottom:42px;
+}
+.slide-category{
+  display:inline-block;
+  background:var(--red);
+  color:white;
+  padding:6px 11px;
+  border-radius:3px;
+  font-size:11px;
+  font-weight:bold;
+  text-transform:uppercase;
+}
+.slide-content h2{
+  font-size:32px;
+  line-height:1.25;
+  max-width:750px;
+  margin:12px 0;
+  color:white;
+}
+.slide-content p{
+  max-width:700px;
   color:#e2e8f0;
-  line-height:1.6;
+  font-size:14px;
+  margin:0;
+}
+.slide-meta{
+  color:#d5dce5;
+  font-size:12px;
+  margin-top:12px;
+}
+.slider-arrow{
+  position:absolute;
+  z-index:4;
+  top:50%;
+  transform:translateY(-50%);
+  width:42px;
+  height:42px;
+  border:0;
+  border-radius:50%;
+  background:rgba(0,0,0,.55);
+  color:white;
+  font-size:25px;
+  cursor:pointer;
+}
+.slider-arrow:hover{background:var(--red)}
+.slider-prev{left:15px}
+.slider-next{right:15px}
+.slider-dots{
+  position:absolute;
+  z-index:5;
+  bottom:15px;
+  right:25px;
+  display:flex;
+  gap:7px;
+}
+.slider-dot{
+  width:9px;
+  height:9px;
+  border:0;
+  border-radius:50%;
+  background:#b8c1cc;
+  padding:0;
+  cursor:pointer;
+}
+.slider-dot.active{background:var(--gold);width:23px;border-radius:8px}
+.slider-empty{
+  display:flex;
+  height:100%;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:25px;
+  color:white;
+  background:linear-gradient(120deg,#102d50,#456987);
+}
+.slider-empty h2{font-size:27px}
+
+/* BERITA DAN SIDEBAR */
+.layout{
+  display:grid;
+  grid-template-columns:minmax(0,2fr) minmax(260px,1fr);
+  gap:22px;
+  align-items:start;
 }
 .news-grid{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:15px;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:17px;
 }
 .news{
-  border:1px solid #e3e7ed;
-  border-radius:6px;
-  overflow:hidden;
-  background:#fff;
+  display:flex;
+  flex-direction:column;
   min-width:0;
+  overflow:hidden;
+  border:1px solid #e2e6ec;
+  border-radius:8px;
+  background:white;
+  transition:box-shadow .2s,transform .2s;
+}
+.news:hover{
+  box-shadow:0 5px 17px rgba(0,0,0,.09);
+  transform:translateY(-2px);
 }
 .news img{
-  width:100%;
-  height:180px;
-  object-fit:cover;
-  background:#e7ebf0;
   display:block;
+  width:100%;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  background:#e5eaf0;
 }
-.news .body{padding:14px}
-.news small{
-  color:#a2761f;
+.news-body{
+  padding:15px;
+  display:flex;
+  flex-direction:column;
+  flex:1;
+}
+.news-category{
+  font-size:11px;
   font-weight:bold;
+  color:#a2761f;
+  text-transform:uppercase;
 }
 .news h3{
+  color:var(--navy);
   font-size:18px;
   line-height:1.4;
   margin:8px 0;
-  color:var(--navy);
 }
 .news p{
-  font-size:14px;
-  line-height:1.7;
   color:#536273;
-  white-space:normal;
-  overflow-wrap:anywhere;
-  margin-bottom:5px;
-}
-.popular li{
-  padding:12px 0;
-  border-bottom:1px solid #e5e8ed;
-  font-weight:bold;
   font-size:14px;
+  line-height:1.75;
+  margin:0 0 13px;
+  overflow-wrap:anywhere;
 }
+.news-date{
+  color:#8994a3;
+  font-size:11px;
+  margin-bottom:7px;
+}
+.share{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:auto;
+  padding-top:10px;
+}
+.share a{
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  flex:1;
+  min-width:105px;
+  padding:10px 8px;
+  border-radius:5px;
+  color:white;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:bold;
+}
+.share-wa{background:#25D366}
+.share-fb{background:#1877F2}
+.share a:hover{opacity:.85}
+.empty-news{
+  color:var(--muted);
+  font-size:14px;
+  padding:10px 0;
+}
+
+/* SIDEBAR */
+.sidebar-box{
+  background:white;
+  border:1px solid #e1e5eb;
+  border-radius:8px;
+  padding:17px;
+  margin-bottom:18px;
+}
+.sidebar-title{
+  color:var(--navy);
+  font-size:18px;
+  border-left:4px solid var(--gold);
+  padding-left:10px;
+  margin:0 0 13px;
+}
+.popular-list{
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+.popular-list li{
+  padding:12px 0;
+  border-bottom:1px solid #e8ebef;
+  font-size:13px;
+  font-weight:bold;
+  line-height:1.5;
+}
+.popular-list li:last-child{border:0}
+.popular-list a{
+  color:#25364a;
+  text-decoration:none;
+}
+.popular-list a:hover{color:#b3261e}
+.popular-number{
+  color:var(--red);
+  font-size:20px;
+  font-weight:900;
+  margin-right:8px;
+}
+.about-text{
+  font-size:14px;
+  line-height:1.8;
+  color:#596779;
+}
+.category-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.category-list a{
+  background:#f0f3f7;
+  color:#34445a;
+  padding:8px 11px;
+  border-radius:4px;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:bold;
+}
+.category-list a:hover{
+  background:var(--navy);
+  color:white;
+}
+
+/* ADMIN */
 #adminPanel{display:none}
-.field{margin:10px 0}
+.field{margin:13px 0}
 .field label{
   display:block;
   font-size:13px;
   font-weight:bold;
-  margin-bottom:5px;
+  margin-bottom:6px;
 }
 input,select,textarea{
   width:100%;
-  padding:11px;
+  padding:12px;
   border:1px solid #cbd2dc;
-  border-radius:4px;
+  border-radius:5px;
   font:inherit;
+  background:white;
 }
-textarea{
-  min-height:140px;
-  resize:vertical;
+input:focus,select:focus,textarea:focus{
+  outline:2px solid var(--gold);
+  border-color:var(--gold);
 }
+textarea{min-height:150px;resize:vertical}
 .action{
   background:var(--navy);
-  color:#fff;
+  color:white;
   border:0;
-  padding:11px 16px;
-  border-radius:4px;
+  padding:12px 17px;
+  border-radius:5px;
   cursor:pointer;
   font-weight:bold;
-  margin:3px 2px 3px 0;
+  margin:4px 3px 4px 0;
 }
-.action:disabled{
-  opacity:.6;
-  cursor:not-allowed;
-}
+.action:disabled{opacity:.6;cursor:not-allowed}
 .status{
   font-size:13px;
   margin-top:10px;
   white-space:pre-wrap;
+  overflow-wrap:anywhere;
 }
+
+/* FOOTER */
 footer{
   background:var(--navy);
   color:#cbd5e1;
-  padding:28px 0;
-  margin-top:25px;
+  padding:30px 0;
+  margin-top:20px;
   font-size:13px;
 }
-footer strong{color:#fff}
+footer strong{color:white;font-size:17px}
 footer a{
+  display:inline-block;
   color:#e5c16a;
-  margin-right:15px;
   text-decoration:none;
+  margin:7px 15px 7px 0;
 }
 
-/* TAMPILAN HP DAN TABLET */
-@media(max-width:760px){
-  body{font-size:15px}
+/* TABLET */
+@media(max-width:900px){
+  .layout{
+    grid-template-columns:minmax(0,1.7fr) minmax(220px,1fr);
+    gap:14px;
+  }
+  .slider{height:360px}
+  .slide-content h2{font-size:27px}
+  .panel{padding:16px}
+}
+
+/* HP */
+@media(max-width:650px){
   .wrap{padding:0 12px}
-  .top{
-    gap:12px;
-    padding:16px 0;
-  }
-  .brand{font-size:22px}
-  .tag{font-size:11px}
-  nav{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-  }
+  .top{padding:14px 0;gap:8px}
+  .brand{font-size:20px}
+  .tag{font-size:10px}
+  .admin{font-size:11px;padding:10px 11px;white-space:nowrap}
+  nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
   nav a{
     text-align:center;
-    padding:12px 5px;
-    font-size:12px;
+    font-size:11px;
+    padding:11px 4px;
+    border-bottom:1px solid #29415e;
   }
-  main{padding:12px 0}
-  .layout{
-    grid-template-columns:1fr;
-    gap:12px;
+  .ticker-label{font-size:10px;padding:12px 9px}
+  .ticker-track a{font-size:11px;padding:0 15px}
+  main{padding:14px 0}
+  .slider-section{margin-bottom:14px}
+  .section-title{font-size:18px}
+  .slider{
+    height:300px;
+    border-radius:7px;
   }
-  .panel{
-    padding:13px;
-    margin-bottom:13px;
+  .slide-content{
+    left:16px;
+    right:16px;
+    bottom:36px;
   }
-  h2{font-size:19px}
-  .lead{
-    min-height:200px;
-    padding:20px;
-  }
-  .lead h1{
-    font-size:23px;
+  .slide-content h2{
+    font-size:21px;
     line-height:1.3;
+    margin:8px 0;
   }
-  .lead p{
-    font-size:14px;
-    line-height:1.6;
+  .slide-content p{
+    font-size:12px;
+    line-height:1.5;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
   }
-  .news-grid{
-    grid-template-columns:1fr;
+  .slide-category{font-size:10px;padding:5px 8px}
+  .slide-meta{font-size:10px;margin-top:7px}
+  .slider-arrow{
+    width:32px;
+    height:32px;
+    font-size:19px;
   }
-  .news img{
-    width:100%;
-    height:auto;
-    aspect-ratio:16/9;
-    object-fit:cover;
-  }
-  .news .body{padding:14px}
-  .news h3{
-    font-size:18px;
-    line-height:1.4;
-  }
-  .news p{
-    font-size:15px;
-    line-height:1.7;
-    overflow-wrap:anywhere;
-  }
+  .slider-prev{left:8px}
+  .slider-next{right:8px}
+  .slider-dots{bottom:10px;right:13px}
+  .layout{grid-template-columns:1fr;gap:0}
+  .panel{padding:14px;margin-bottom:13px}
+  .news-grid{grid-template-columns:1fr;gap:13px}
+  .news img{aspect-ratio:16/9}
+  .news-body{padding:14px}
+  .news h3{font-size:18px}
+  .news p{font-size:14px;line-height:1.7}
+  .share a{padding:11px 7px;font-size:11px}
+  .sidebar-box{padding:14px;margin-bottom:13px}
   input,select,textarea{font-size:16px}
-  .action{
-    padding:12px 14px;
-  }
+  .action{font-size:13px;padding:12px 14px}
+  footer{padding:23px 0}
+}
+
+/* HP KECIL */
+@media(max-width:360px){
+  .brand{font-size:17px}
+  .admin{font-size:10px;padding:9px 8px}
+  .slider{height:270px}
+  .slide-content h2{font-size:19px}
+}
+
+/* PENGATURAN AKSESIBILITAS */
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .ticker-track{animation:none}
+  .slide{transition:none}
 }
 </style>
 </head>
@@ -300,170 +590,193 @@ footer a{
 <body>
 
 <header>
-<div class="wrap">
-  <div class="top">
-    <div>
-      <div class="brand">🌐 LINTAS <span>DUNIA NEWS</span></div>
-      <div class="tag">Cepat, Akurat, Terpercaya</div>
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <div class="brand">🌐 LINTAS <span>DUNIA NEWS</span></div>
+        <div class="tag">Cepat, Akurat, Terpercaya</div>
+      </div>
+      <button class="admin" onclick="toggleAdmin()">ADMIN / LOGIN</button>
     </div>
-    <button class="admin" onclick="toggleAdmin()">ADMIN / LOGIN</button>
-  </div>
 
-  <nav>
-    <a href="#nasional">NASIONAL</a>
-    <a href="#internasional">INTERNASIONAL</a>
-    <a href="#hukum">HUKUM</a>
-    <a href="#ekonomi">EKONOMI</a>
-    <a href="#olahraga">OLAHRAGA</a>
-    <a href="#teknologi">TEKNOLOGI</a>
-    <a href="#hiburan">HIBURAN</a>
-  </nav>
-</div>
+    <nav id="mainNav">
+      <a href="#berita" data-category="Semua" class="active">BERANDA</a>
+      <a href="#berita" data-category="Nasional">NASIONAL</a>
+      <a href="#berita" data-category="Internasional">INTERNASIONAL</a>
+      <a href="#berita" data-category="Hukum">HUKUM</a>
+      <a href="#berita" data-category="Ekonomi">EKONOMI</a>
+      <a href="#berita" data-category="Olahraga">OLAHRAGA</a>
+      <a href="#berita" data-category="Teknologi">TEKNOLOGI</a>
+      <a href="#berita" data-category="Hiburan">HIBURAN</a>
+    </nav>
+  </div>
 </header>
 
+<!-- KILASAN BERITA BERJALAN -->
 <div class="ticker">
-  <div class="wrap">
-    <b>TERKINI</b>
-    Lintas Dunia News — Menyajikan informasi aktual untuk Anda.
+  <div class="ticker-label">KILASAN TERKINI</div>
+  <div class="ticker-window">
+    <div id="tickerTrack" class="ticker-track">
+      <a href="#berita">Selamat datang di Lintas Dunia News</a>
+      <a href="#berita">Menyajikan informasi aktual dan terpercaya</a>
+    </div>
   </div>
 </div>
 
 <main class="wrap">
 
-<section id="adminPanel" class="panel">
-  <h2>Panel Admin Berita</h2>
+  <!-- PANEL ADMIN -->
+  <section id="adminPanel" class="panel">
+    <h2 class="section-title">Panel Admin Berita</h2>
 
-  <div id="loginBox">
-    <div class="field">
-      <label>Email admin</label>
-      <input id="email" type="email" placeholder="Masukkan email Supabase">
-    </div>
-
-    <div class="field">
-      <label>Kata sandi</label>
-      <input id="password" type="password" placeholder="Masukkan kata sandi">
-    </div>
-
-    <button class="action" onclick="login()">Masuk</button>
-  </div>
-
-  <div id="postBox" style="display:none">
-    <p>Login berhasil. Isi formulir berikut untuk menerbitkan berita.</p>
-
-    <div class="field">
-      <label>Judul berita</label>
-      <input id="judul" placeholder="Judul berita">
-    </div>
-
-    <div class="field">
-      <label>Kategori</label>
-      <select id="kategori">
-        <option>Nasional</option>
-        <option>Internasional</option>
-        <option>Hukum</option>
-        <option>Ekonomi</option>
-        <option>Olahraga</option>
-        <option>Teknologi</option>
-        <option>Hiburan</option>
-      </select>
-    </div>
-
-    <div class="field">
-      <label>Nama penulis</label>
-      <input id="penulis" placeholder="Nama penulis">
-    </div>
-
-    <div class="field">
-      <label for="fotoFile">Upload Foto Berita dari Komputer</label>
-      <input
-        id="fotoFile"
-        type="file"
-        accept="image/jpeg,image/png,image/webp"
-      >
-      <small style="display:block;color:#64748b;margin-top:6px">
-        Format JPG, PNG, atau WEBP. Ukuran maksimal 5 MB.
-      </small>
-
-      <img
-        id="fotoPreview"
-        alt="Pratinjau foto berita"
-        style="display:none;width:100%;max-height:280px;object-fit:contain;margin-top:12px;border-radius:6px"
-      >
-
-      <button
-        type="button"
-        id="hapusFoto"
-        class="action"
-        style="display:none;background:#687789;margin-top:10px"
-        onclick="hapusFotoPilihan()"
-      >Hapus Foto</button>
-    </div>
-
-    <div class="field">
-      <label>Isi berita</label>
-      <textarea id="isi" placeholder="Tulis isi berita di sini"></textarea>
-    </div>
-
-    <button class="action" onclick="publishNews()">Terbitkan berita</button>
-    <button class="action" onclick="logout()" style="background:#687789">Keluar</button>
-  </div>
-
-  <div id="status" class="status"></div>
-</section>
-
-<div class="layout">
-  <div>
-    <section class="panel">
-      <h2>Berita Utama</h2>
-      <div class="lead">
-        <small>LINTAS DUNIA NEWS</small>
-        <h1>Informasi Terkini dari Dalam dan Luar Negeri</h1>
-        <p>Ikuti perkembangan berita nasional, internasional, ekonomi, hukum, olahraga, teknologi, dan hiburan.</p>
+    <div id="loginBox">
+      <div class="field">
+        <label for="email">Email admin</label>
+        <input id="email" type="email" placeholder="Masukkan email Supabase">
       </div>
-    </section>
 
-    <section class="panel">
-      <h2>Berita Terbaru</h2>
-      <div id="newsList" class="news-grid">
-        <p>Memuat berita...</p>
+      <div class="field">
+        <label for="password">Kata sandi</label>
+        <input id="password" type="password" placeholder="Masukkan kata sandi">
       </div>
-    </section>
+
+      <button class="action" onclick="login()">Masuk</button>
+    </div>
+
+    <div id="postBox" style="display:none">
+      <p>Login berhasil. Isi formulir berikut untuk menerbitkan berita.</p>
+
+      <div class="field">
+        <label for="judul">Judul berita</label>
+        <input id="judul" placeholder="Judul berita">
+      </div>
+
+      <div class="field">
+        <label for="kategori">Kategori</label>
+        <select id="kategori">
+          <option>Nasional</option>
+          <option>Internasional</option>
+          <option>Hukum</option>
+          <option>Ekonomi</option>
+          <option>Olahraga</option>
+          <option>Teknologi</option>
+          <option>Hiburan</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="penulis">Nama penulis</label>
+        <input id="penulis" placeholder="Nama penulis">
+      </div>
+
+      <div class="field">
+        <label for="fotoFile">Upload Foto Berita dari Komputer atau HP</label>
+        <input id="fotoFile" type="file" accept="image/jpeg,image/png,image/webp">
+        <small style="display:block;color:#64748b;margin-top:6px">
+          Format JPG, PNG, atau WEBP. Ukuran maksimal 5 MB.
+        </small>
+
+        <img
+          id="fotoPreview"
+          alt="Pratinjau foto berita"
+          style="display:none;width:100%;max-height:280px;object-fit:contain;margin-top:12px;border-radius:6px"
+        >
+
+        <button
+          type="button"
+          id="hapusFoto"
+          class="action"
+          style="display:none;background:#687789;margin-top:10px"
+          onclick="hapusFotoPilihan()"
+        >Hapus Foto</button>
+      </div>
+
+      <div class="field">
+        <label for="isi">Isi berita</label>
+        <textarea id="isi" placeholder="Tulis isi berita di sini"></textarea>
+      </div>
+
+      <button class="action" onclick="publishNews()">Terbitkan berita</button>
+      <button class="action" onclick="logout()" style="background:#687789">Keluar</button>
+    </div>
+
+    <div id="status" class="status"></div>
+  </section>
+
+  <!-- SLIDER BERITA UTAMA -->
+  <section class="slider-section">
+    <h2 class="section-title">Berita Utama</h2>
+
+    <div class="slider" id="newsSlider">
+      <div class="slider-empty">
+        <div>
+          <h2>LINTAS DUNIA NEWS</h2>
+          <p>Berita terbaru akan tampil di sini.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KONTEN BERITA -->
+  <div class="layout">
+
+    <div>
+      <section class="panel" id="berita">
+        <h2 class="section-title" id="newsHeading">Berita Terbaru</h2>
+
+        <div id="newsList" class="news-grid">
+          <p class="empty-news">Memuat berita...</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside>
+      <section class="sidebar-box">
+        <h3 class="sidebar-title">Berita Terpopuler</h3>
+        <ol id="popularList" class="popular-list">
+          <li>Berita akan ditampilkan di sini.</li>
+        </ol>
+      </section>
+
+      <section class="sidebar-box">
+        <h3 class="sidebar-title">Kategori Berita</h3>
+        <div class="category-list">
+          <a href="#berita" data-category="Nasional">Nasional</a>
+          <a href="#berita" data-category="Internasional">Internasional</a>
+          <a href="#berita" data-category="Hukum">Hukum</a>
+          <a href="#berita" data-category="Ekonomi">Ekonomi</a>
+          <a href="#berita" data-category="Olahraga">Olahraga</a>
+          <a href="#berita" data-category="Teknologi">Teknologi</a>
+          <a href="#berita" data-category="Hiburan">Hiburan</a>
+        </div>
+      </section>
+
+      <section class="sidebar-box">
+        <h3 class="sidebar-title">Tentang Kami</h3>
+        <p class="about-text">
+          LINTAS DUNIA NEWS menyajikan informasi aktual, berimbang, dan terpercaya dari dalam dan luar negeri.
+        </p>
+      </section>
+    </aside>
+
   </div>
-
-  <aside>
-    <section class="panel">
-      <h2>Terpopuler</h2>
-      <ol class="popular">
-        <li>Ikuti perkembangan berita terbaru setiap hari</li>
-        <li>Informasi nasional dan internasional</li>
-        <li>Kabar ekonomi, hukum, dan teknologi</li>
-      </ol>
-    </section>
-
-    <section class="panel">
-      <h2>Tentang Kami</h2>
-      <p style="font-size:14px;line-height:1.6">
-        LINTAS DUNIA NEWS menyajikan informasi aktual, berimbang, dan terpercaya.
-      </p>
-    </section>
-  </aside>
-</div>
-
 </main>
 
 <footer>
-<div class="wrap">
-  <strong>LINTAS DUNIA NEWS</strong>
-  <p>Cepat, Akurat, Terpercaya</p>
-  <a href="#tentang">Tentang Kami</a>
-  <a href="#redaksi">Redaksi</a>
-  <a href="#kontak">Kontak</a>
-  <a href="#privasi">Kebijakan Privasi</a>
-  <p>© 2026 LINTAS DUNIA NEWS</p>
-</div>
+  <div class="wrap">
+    <strong>LINTAS DUNIA NEWS</strong>
+    <p>Cepat, Akurat, Terpercaya</p>
+    <a href="#tentang">Tentang Kami</a>
+    <a href="#redaksi">Redaksi</a>
+    <a href="#kontak">Kontak</a>
+    <a href="#privasi">Kebijakan Privasi</a>
+    <p>© 2026 LINTAS DUNIA NEWS</p>
+  </div>
 </footer>
 
 <script>
+/* KONEKSI SUPABASE */
 const SUPABASE_URL = "https://eljctkgfacfwdgjndydn.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable__I2FIf377KvvF85TuiZMlA_Hms3Aw7P";
 
@@ -474,15 +787,14 @@ const db = window.supabase.createClient(
 
 let fotoTerpilih = null;
 let fotoPreviewURL = null;
+let semuaBerita = [];
+let beritaDitampilkan = [];
+let slideAktif = 0;
+let timerSlider = null;
 
-function toggleAdmin() {
-  const p = document.getElementById('adminPanel');
-  p.style.display = p.style.display === 'block' ? 'none' : 'block';
-  p.scrollIntoView({behavior:'smooth'});
-}
-
+/* FUNGSI BANTUAN */
 function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, c => ({
+  return String(s ?? '').replace(/[&<>"']/g, c => ({
     '&':'&amp;',
     '<':'&lt;',
     '>':'&gt;',
@@ -491,40 +803,319 @@ function escapeHtml(s) {
   }[c]));
 }
 
-async function loadNews() {
-  const box = document.getElementById('newsList');
+function formatTanggal(tanggal) {
+  if (!tanggal) return '';
 
-  const {data, error} = await db
-    .from('berita')
-    .select('*')
-    .order('created_at', {ascending:false});
+  const d = new Date(tanggal);
 
-  if (error) {
-    box.innerHTML = '<p>Berita belum dapat dimuat. Periksa koneksi Supabase.</p>';
-    return;
+  if (isNaN(d.getTime())) return '';
+
+  return d.toLocaleDateString('id-ID',{
+    day:'numeric',
+    month:'long',
+    year:'numeric'
+  });
+}
+
+function ringkas(teks, panjang=145) {
+  const bersih = String(teks || '').replace(/\s+/g,' ').trim();
+
+  if (bersih.length <= panjang) return bersih;
+
+  return bersih.slice(0,panjang).trim() + '...';
+}
+
+/* PANEL ADMIN */
+function toggleAdmin() {
+  const panel = document.getElementById('adminPanel');
+  const terbuka = panel.style.display === 'block';
+
+  panel.style.display = terbuka ? 'none' : 'block';
+
+  if (!terbuka) {
+    panel.scrollIntoView({behavior:'smooth',block:'start'});
   }
+}
+
+/* KILASAN BERITA BERJALAN */
+function tampilkanTicker(data) {
+  const track = document.getElementById('tickerTrack');
 
   if (!data || !data.length) {
-    box.innerHTML = '<p>Belum ada berita. Silakan masuk sebagai admin untuk menerbitkan berita pertama.</p>';
+    track.innerHTML = `
+      <a href="#berita">Selamat datang di Lintas Dunia News</a>
+      <a href="#berita">Menyajikan informasi aktual dan terpercaya</a>
+    `;
     return;
   }
 
-  box.innerHTML = data.map(n => `
-    <article class="news">
-      ${n.foto ? `<img src="${escapeHtml(n.foto)}" alt="">` : ''}
-      <div class="body">
-        <small>${escapeHtml(n.kategori || 'Berita')} · ${escapeHtml(n.penulis || 'Redaksi')}</small>
-        <h3>${escapeHtml(n.judul || 'Tanpa judul')}</h3>
-        <p>${escapeHtml(n.isi || '').replace(/\n/g, '<br>')}</p>
+  const berita = data.slice(0,10);
+
+  const daftar = berita.map(n => `
+    <a href="#berita">${escapeHtml(n.judul || 'Berita terbaru')}</a>
+  `).join('');
+
+  /* Duplikasi isi agar pergerakan ticker berulang */
+  track.innerHTML = daftar + daftar;
+}
+
+/* SLIDER BERITA UTAMA */
+function tampilkanSlider(data) {
+  const slider = document.getElementById('newsSlider');
+
+  const pilihan = data.filter(n => n.foto).slice(0,6);
+
+  if (!pilihan.length) {
+    slider.innerHTML = `
+      <div class="slider-empty">
+        <div>
+          <h2>LINTAS DUNIA NEWS</h2>
+          <p>Foto berita utama akan tampil di sini setelah berita dengan foto diterbitkan.</p>
+        </div>
       </div>
-    </article>
+    `;
+
+    if (timerSlider) {
+      clearInterval(timerSlider);
+      timerSlider = null;
+    }
+    return;
+  }
+
+  slider.innerHTML = pilihan.map((n,i) => `
+    <div class="slide ${i===0?'active':''}">
+      <img
+        src="${escapeHtml(n.foto)}"
+        alt="${escapeHtml(n.judul)}"
+        ${i===0?'fetchpriority="high"':'loading="lazy"'}
+      >
+
+      <div class="slide-content">
+        <span class="slide-category">${escapeHtml(n.kategori || 'Berita')}</span>
+        <h2>${escapeHtml(n.judul || 'Berita terbaru')}</h2>
+        <p>${escapeHtml(ringkas(n.isi,150))}</p>
+        <div class="slide-meta">
+          ${escapeHtml(n.penulis || 'Redaksi')}
+          ${n.created_at ? ' · ' + escapeHtml(formatTanggal(n.created_at)) : ''}
+        </div>
+      </div>
+    </div>
+  `).join('') + `
+    <button class="slider-arrow slider-prev" onclick="geserSlider(-1)" aria-label="Berita sebelumnya">‹</button>
+    <button class="slider-arrow slider-next" onclick="geserSlider(1)" aria-label="Berita berikutnya">›</button>
+    <div class="slider-dots">
+      ${pilihan.map((n,i)=>`
+        <button class="slider-dot ${i===0?'active':''}"
+          onclick="pilihSlide(${i})"
+          aria-label="Pilih berita ${i+1}">
+        </button>
+      `).join('')}
+    </div>
+  `;
+
+  slideAktif = 0;
+  mulaiSlider();
+}
+
+function pilihSlide(index) {
+  const slides = document.querySelectorAll('#newsSlider .slide');
+  const dots = document.querySelectorAll('#newsSlider .slider-dot');
+
+  if (!slides.length) return;
+
+  slideAktif = (index + slides.length) % slides.length;
+
+  slides.forEach((slide,i) => {
+    slide.classList.toggle('active',i===slideAktif);
+  });
+
+  dots.forEach((dot,i) => {
+    dot.classList.toggle('active',i===slideAktif);
+  });
+}
+
+function geserSlider(arah) {
+  pilihSlide(slideAktif + arah);
+  mulaiSlider();
+}
+
+function mulaiSlider() {
+  if (timerSlider) clearInterval(timerSlider);
+
+  const slides = document.querySelectorAll('#newsSlider .slide');
+
+  if (slides.length < 2) return;
+
+  timerSlider = setInterval(() => {
+    pilihSlide(slideAktif + 1);
+  },5000);
+}
+
+/* BERITA TERBARU DAN TOMBOL BERBAGI */
+function tampilkanBerita(data) {
+  const box = document.getElementById('newsList');
+
+  if (!data || !data.length) {
+    box.innerHTML = '<p class="empty-news">Belum ada berita yang diterbitkan.</p>';
+    return;
+  }
+
+  const alamatWebsite = window.location.origin + window.location.pathname;
+
+  box.innerHTML = data.map(n => {
+    const judul = n.judul || 'Berita Lintas Dunia News';
+    const isi = n.isi || '';
+
+    const teksWhatsApp =
+      judul + '\n\n' + isi +
+      '\n\nBaca berita lainnya di: ' + alamatWebsite;
+
+    const linkWhatsApp =
+      'https://wa.me/?text=' + encodeURIComponent(teksWhatsApp);
+
+    const linkFacebook =
+      'https://www.facebook.com/sharer/sharer.php?u=' +
+      encodeURIComponent(alamatWebsite) +
+      '&quote=' + encodeURIComponent(judul);
+
+    return `
+      <article class="news">
+        ${n.foto ? `
+          <img
+            src="${escapeHtml(n.foto)}"
+            alt="${escapeHtml(judul)}"
+            loading="lazy"
+          >
+        ` : ''}
+
+        <div class="news-body">
+          <div class="news-category">
+            ${escapeHtml(n.kategori || 'Berita')}
+            · ${escapeHtml(n.penulis || 'Redaksi')}
+          </div>
+
+          <div class="news-date">
+            ${escapeHtml(formatTanggal(n.created_at))}
+          </div>
+
+          <h3>${escapeHtml(judul)}</h3>
+
+          <p>${escapeHtml(isi).replace(/\n/g,'<br>')}</p>
+
+          <div class="share">
+            <a class="share-wa"
+              href="${linkWhatsApp}"
+              target="_blank"
+              rel="noopener noreferrer">
+              Share WhatsApp
+            </a>
+
+            <a class="share-fb"
+              href="${linkFacebook}"
+              target="_blank"
+              rel="noopener noreferrer">
+              Share Facebook
+            </a>
+          </div>
+        </div>
+      </article>
+    `;
+  }).join('');
+}
+
+/* BERITA TERPOPULER SEMENTARA BERDASARKAN BERITA TERBARU */
+function tampilkanPopuler(data) {
+  const box = document.getElementById('popularList');
+
+  if (!data || !data.length) {
+    box.innerHTML = '<li>Belum ada berita.</li>';
+    return;
+  }
+
+  box.innerHTML = data.slice(0,5).map((n,i) => `
+    <li>
+      <span class="popular-number">${i+1}.</span>
+      ${escapeHtml(n.judul || 'Berita terbaru')}
+    </li>
   `).join('');
 }
 
+/* FILTER KATEGORI */
+function filterBerita(kategori) {
+  const navLinks = document.querySelectorAll('#mainNav a');
+
+  navLinks.forEach(a => {
+    a.classList.toggle(
+      'active',
+      a.dataset.category === kategori
+    );
+  });
+
+  if (kategori === 'Semua') {
+    beritaDitampilkan = semuaBerita;
+    document.getElementById('newsHeading').textContent = 'Berita Terbaru';
+  } else {
+    beritaDitampilkan = semuaBerita.filter(n =>
+      String(n.kategori || '').toLowerCase() === kategori.toLowerCase()
+    );
+
+    document.getElementById('newsHeading').textContent =
+      'Berita ' + kategori;
+  }
+
+  tampilkanBerita(beritaDitampilkan);
+
+  document.getElementById('berita').scrollIntoView({
+    behavior:'smooth',
+    block:'start'
+  });
+}
+
+document.querySelectorAll('[data-category]').forEach(link => {
+  link.addEventListener('click',function(event) {
+    event.preventDefault();
+    filterBerita(this.dataset.category);
+  });
+});
+
+/* AMBIL BERITA DARI SUPABASE */
+async function loadNews() {
+  const box = document.getElementById('newsList');
+
+  box.innerHTML = '<p class="empty-news">Memuat berita...</p>';
+
+  const {data,error} = await db
+    .from('berita')
+    .select('*')
+    .order('created_at',{ascending:false});
+
+  if (error) {
+    box.innerHTML = '<p class="empty-news">Berita belum dapat dimuat. Periksa koneksi Supabase.</p>';
+    console.error(error);
+    return;
+  }
+
+  semuaBerita = data || [];
+  beritaDitampilkan = semuaBerita;
+
+  tampilkanTicker(semuaBerita);
+  tampilkanSlider(semuaBerita);
+  tampilkanBerita(beritaDitampilkan);
+  tampilkanPopuler(semuaBerita);
+}
+
+/* LOGIN ADMIN */
 async function login() {
-  const email = document.getElementById('email').value;
+  const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
   const status = document.getElementById('status');
+
+  if (!email || !password) {
+    status.textContent = 'Email dan kata sandi harus diisi.';
+    return;
+  }
+
+  status.textContent = 'Sedang masuk...';
 
   const {error} = await db.auth.signInWithPassword({
     email,
@@ -539,7 +1130,18 @@ async function login() {
   }
 }
 
-document.getElementById('fotoFile').addEventListener('change', function(event) {
+/* PERIKSA SESI ADMIN YANG MASIH AKTIF */
+async function periksaSesiAdmin() {
+  const {data,error} = await db.auth.getSession();
+
+  if (!error && data.session) {
+    document.getElementById('loginBox').style.display = 'none';
+    document.getElementById('postBox').style.display = 'block';
+  }
+}
+
+/* PILIH FOTO DAN PRATINJAU */
+document.getElementById('fotoFile').addEventListener('change',function(event) {
   const file = event.target.files[0];
   const preview = document.getElementById('fotoPreview');
   const hapusButton = document.getElementById('hapusFoto');
@@ -580,6 +1182,7 @@ document.getElementById('fotoFile').addEventListener('change', function(event) {
   status.textContent = 'Foto berhasil dipilih dan siap diunggah.';
 });
 
+/* HAPUS FOTO PILIHAN */
 function hapusFotoPilihan() {
   fotoTerpilih = null;
 
@@ -595,16 +1198,19 @@ function hapusFotoPilihan() {
   document.getElementById('status').textContent = 'Foto pilihan dihapus.';
 }
 
+/* TERBITKAN BERITA */
 async function publishNews() {
   const status = document.getElementById('status');
-  const tombol = document.querySelector('#postBox button[onclick="publishNews()"]');
+  const tombol = document.querySelector(
+    '#postBox button[onclick="publishNews()"]'
+  );
 
   const row = {
-    judul: document.getElementById('judul').value.trim(),
-    kategori: document.getElementById('kategori').value,
-    penulis: document.getElementById('penulis').value.trim(),
-    foto: null,
-    isi: document.getElementById('isi').value.trim()
+    judul:document.getElementById('judul').value.trim(),
+    kategori:document.getElementById('kategori').value,
+    penulis:document.getElementById('penulis').value.trim(),
+    foto:null,
+    isi:document.getElementById('isi').value.trim()
   };
 
   if (!row.judul || !row.isi) {
@@ -620,29 +1226,31 @@ async function publishNews() {
       const file = fotoTerpilih;
       const formatDiizinkan = ['image/jpeg','image/png','image/webp'];
 
-      if (!formatDiizinkan.includes(file.type) || file.size > 5 * 1024 * 1024) {
+      if (!formatDiizinkan.includes(file.type) ||
+          file.size > 5 * 1024 * 1024) {
         throw new Error('Foto harus JPG, PNG, atau WEBP dan maksimal 5 MB.');
       }
 
-      const ekstensi = file.type === 'image/jpeg' ? 'jpg' :
-                       file.type === 'image/png' ? 'png' : 'webp';
+      const ekstensi =
+        file.type === 'image/jpeg' ? 'jpg' :
+        file.type === 'image/png' ? 'png' : 'webp';
 
       const namaFile = Date.now() + '-' +
         Math.random().toString(36).slice(2) + '.' + ekstensi;
 
       const lokasiFile = 'berita/' + namaFile;
 
-      const {data, error: uploadError} = await db.storage
+      const {data,error:uploadError} = await db.storage
         .from('foto-berita')
-        .upload(lokasiFile, file, {
-          cacheControl: '3600',
-          contentType: file.type,
-          upsert: false
+        .upload(lokasiFile,file,{
+          cacheControl:'3600',
+          contentType:file.type,
+          upsert:false
         });
 
       if (uploadError) throw uploadError;
 
-      const {data: urlData} = db.storage
+      const {data:urlData} = db.storage
         .from('foto-berita')
         .getPublicUrl(data.path);
 
@@ -658,27 +1266,43 @@ async function publishNews() {
     });
 
     document.getElementById('kategori').selectedIndex = 0;
+
     hapusFotoPilihan();
 
     status.textContent = 'Berita dan foto berhasil diterbitkan!';
 
     await loadNews();
 
-  } catch (error) {
+    document.getElementById('newsSlider').scrollIntoView({
+      behavior:'smooth',
+      block:'center'
+    });
+
+  } catch(error) {
     status.textContent = 'Gagal menerbitkan berita: ' + error.message;
   } finally {
     if (tombol) tombol.disabled = false;
   }
 }
 
+/* LOGOUT ADMIN */
 async function logout() {
-  await db.auth.signOut();
+  const {error} = await db.auth.signOut();
+
+  if (error) {
+    document.getElementById('status').textContent =
+      'Gagal keluar: ' + error.message;
+    return;
+  }
 
   document.getElementById('postBox').style.display = 'none';
   document.getElementById('loginBox').style.display = 'block';
+  document.getElementById('password').value = '';
   document.getElementById('status').textContent = 'Anda sudah keluar.';
 }
 
+/* JALANKAN WEBSITE */
+periksaSesiAdmin();
 loadNews();
 </script>
 
