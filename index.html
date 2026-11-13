@@ -391,7 +391,8 @@ function tampilkanBerita(data){
  if(!data||!data.length){box.innerHTML='<p class="empty-news">Belum ada berita dalam kategori ini.</p>';return;}
  box.innerHTML=data.map((n,i)=>{
   const judul=n.judul||"Berita Lintas Dunia News",gambar=fotoAman(n.foto);
-  const wa="https://wa.me/?text="+encodeURIComponent(judul+"\n\nBaca berita lainnya di LINTAS DUNIA NEWS");
+  const linkBagikan="https://eljctkgfacfwdgjndydn.supabase.co/functions/v1/rapid-processor?id="+encodeURIComponent(n.id)+"&site="+encodeURIComponent(window.location.origin+window.location.pathname);
+const wa="https://wa.me/?text="+encodeURIComponent(judul+"\n"+linkBagikan);
   return `<article class="news">
    ${gambar?`<img class="news-image" src="${gambar}" alt="${escapeHtml(judul)}" loading="lazy" onclick="bukaBerita(${i})">`:""}
    <div class="news-body">
