@@ -411,7 +411,9 @@ const wa="https://wa.me/?text="+encodeURIComponent(judul+"\n"+linkBagikan);
 function bukaBerita(index){
  const n=beritaDitampilkan[index];if(!n)return;
  const gambar=fotoAman(n.foto);
- const wa="https://wa.me/?text="+encodeURIComponent((n.judul||"Berita")+"\n\n"+(n.isi||""));
+ const judul=n.judul||"Berita LINTAS DUNIA NEWS";
+const linkBagikan="https://eljctkgfacfwdgjndydn.supabase.co/functions/v1/rapid-processor?id="+encodeURIComponent(n.id)+"&site="+encodeURIComponent(window.location.origin+window.location.pathname);
+const wa="https://wa.me/?text="+encodeURIComponent(judul+"\n"+linkBagikan);
  document.getElementById("articleDetailContent").innerHTML=`
   ${gambar?`<img class="article-detail-image" src="${gambar}" alt="${escapeHtml(n.judul)}">`:""}
   <div class="article-detail-body">
