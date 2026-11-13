@@ -470,7 +470,20 @@ async function loadNews(){
  semuaBerita=data||[];
  tampilkanTicker(semuaBerita);tampilkanSlider(semuaBerita);tampilkanPopuler(semuaBerita);
  beritaDitampilkan=kategoriAktif==="Semua"?semuaBerita:semuaBerita.filter(n=>String(n.kategori||"").toLowerCase()===kategoriAktif.toLowerCase());
- tampilkanBerita(beritaDitampilkan);
+ tampilkanBerita(beritaDitampilkan); const params = new URLSearchParams(window.location.search);
+ const idBerita = params.get("berita");
+
+ if(idBerita){
+  const indexBerita = semuaBerita.findIndex(
+   n => String(n.id) === String(idBerita)
+  );
+
+  if(indexBerita !== -1){
+   beritaDitampilkan = semuaBerita;
+   tampilkanBerita(beritaDitampilkan);
+   bukaBerita(indexBerita);
+  }
+ }
 }
 
 /* LOGIN ADMIN */
